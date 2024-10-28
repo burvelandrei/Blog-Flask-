@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ publication.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ publication.title }}</h2>
+<p>{{ publication.text_publication }}</p>
+
+<div>
+    <form action="{{ url_for('change_publication', publication_id=publication.id) }}" method="GET">
+        <button class="change_publication" type="submit">Редактировать публикацию</button>
+    </form>
+
+    <form action="{{ url_for('delete_publication', publication_id=publication.id) }}" method="POST">
+        <button class="delete_publication" type="submit">Удалить публикацию</button>
+    </form>
+</div>
+
+<h4>Комментарии</h4>
+<ul>
+    {% for comment in comments %}
+    <li>{{ comment.text_comment }} - {{ comment.created_at }}</li>
+    {% endfor %}
+</ul>
+
+<form action="{{ url_for('add_comment', publication_id=publication.id) }}" method="POST">
+    <textarea name="content" placeholder="Оставьте комментарий..."></textarea>
+    <button type="submit">Добавить комментарий</button>
+</form>
+
+
+{% endblock %}

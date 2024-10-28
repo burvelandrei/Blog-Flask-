@@ -7,6 +7,9 @@
     <title>{% block title %}Главная страница{% endblock %}</title>
 </head>
 <body>
+    <header>
+        <h1><a href="{{ url_for('index') }}">HaHabr</a></h1>
+    </header>
     <main>
         {% block content %}
         {% endblock %}

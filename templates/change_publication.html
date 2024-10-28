@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Изменить публикацию{% endblock %}
+
+{% block content %}
+<h2>Изменить публикацию</h2>
+
+{% if error %}
+<p class="error"> {{ error }} </p>
+{% endif %}
+
+<form action="{{ url_for('change_publication', publication_id=publication.id) }}" method="POST">
+    <label for="title">Название публикации:</label>
+    <input type="text" id="title" name="title" value="{{ publication.title }}">
+
+    <label for="text_publication">Текст публикации:</label>
+    <textarea class="write_text_publication" type="text" id="text_publication"
+        name="text_publication">{{ publication.text_publication }}</textarea>
+
+    <button type="submit">Изменить публикацию</button>
+</form>
+
+{% endblock %}

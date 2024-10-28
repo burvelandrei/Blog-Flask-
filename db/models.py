@@ -10,7 +10,7 @@ from db.db_connect import engine
 class Publication(BaseModel):
     __tablename__ = "publication"
 
-    title = Column(VARCHAR(70))
+    title = Column(String, nullable=False)
     text_publication = Column(String)
     comments = relationship("Comment", backref="publication")
 
@@ -20,7 +20,7 @@ class Publication(BaseModel):
 class Comment(BaseModel):
     __tablename__ = "comment"
 
-    text_comment = Column(String)
+    text_comment = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now)
     text_publication_id = Column(Integer, ForeignKey(Publication.id, ondelete="CASCADE"))
 

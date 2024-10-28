@@ -1,4 +1,6 @@
-from sqlalchemy import Table, Column, Integer, VARCHAR, ForeignKey, String
+from datetime import datetime
+
+from sqlalchemy import Table, Column, Integer, VARCHAR, ForeignKey, String, DateTime
 from sqlalchemy.orm import relationship
 from db.Base_Model import BaseModel
 from db.db_connect import engine
@@ -18,7 +20,8 @@ class Publication(BaseModel):
 class Comment(BaseModel):
     __tablename__ = "comment"
 
-    text_comment = Column(Integer)
+    text_comment = Column(String)
+    created_at = Column(DateTime, default=datetime.now)
     text_publication_id = Column(Integer, ForeignKey(Publication.id, ondelete="CASCADE"))
 
 

@@ -1,3 +1,5 @@
+from contextlib import contextmanager
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from db.config_db import DB, load_config
@@ -14,6 +16,7 @@ engine = create_engine(
 
 Session = sessionmaker(bind=engine)
 
+@contextmanager
 def get_session():
     session = Session()
     try:

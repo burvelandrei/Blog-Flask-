@@ -10,8 +10,17 @@ config_db: DB = load_config()
 engine = create_engine(
     f"""postgresql+psycopg2://{config_db.db_user}:{config_db.db_password}@{config_db.db_host}:{config_db.db_port}/{config_db.db_name}""",
     echo=True,
-    pool_recycle=2000,
-    isolation_level="AUTOCOMMIT",
 )
 
 Session = sessionmaker(bind=engine)
+
+def get_session():
+    session = Session()
+    try:
+        yield session
+        session.commit()
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
